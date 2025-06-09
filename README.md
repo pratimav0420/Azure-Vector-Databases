@@ -1,5 +1,3 @@
-# Azure-Vector-Databases
-
 # Azure Vector Databases
 
 ## 🧭 Goal
