@@ -1,1 +1,106 @@
+# Azure Vector Databases - .gitignore
+
+# Configuration files with sensitive information
+config.py
+.env
+*.env
+
+# Azure credentials and keys
+azure_credentials.json
+service_principal.json
+
+# Dataset files (keep structure but ignore large CSV files)
 data/
+data/*.csv
+data/*.json
+data/*.parquet
+data/moviesdataset/*.csv
+data/moviesdataset/*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Model files and caches
+models/
+cache/
+*.pkl
+*.pickle
+
+# Azure specific
+.azure/
+
+# Local configuration overrides
+local_config.py
+dev_config.py
+prod_config.py

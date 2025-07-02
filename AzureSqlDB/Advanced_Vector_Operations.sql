@@ -1,10 +1,10 @@
 -- ========================================
 -- Advanced Vector Database Operations
 -- Movie Dataset - Azure SQL Database with -- Find recommendations for user based on vector similarity
-DECLARE @user_preference_vector VECTOR(1536)ure OpenAI
+DECLARE @user_preference_vector VECTOR(1536)
 ---- Simulate a RAG query: "Find movies about space adventure"
 -- In real RAG, this would use Azure OpenAI embedding model to convert query to vector
-DECLARE @rag_query_vector VECTOR(1536)======================================
+DECLARE @rag_query_vector VECTOR(1536)
 
 -- This script demonstrates advanced vector database operations using Azure OpenAI embeddings
 -- Run this after executing MovieDB_DDL_Scripts.sql and loading data with Azure OpenAI embeddings
