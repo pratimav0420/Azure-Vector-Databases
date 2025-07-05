@@ -8,6 +8,9 @@ numpy>=1.24.0
 pyodbc>=4.0.35
 sqlalchemy>=2.0.0
 
+# Azure Cosmos DB Integration
+azure-cosmos>=4.5.0
+
 # Azure OpenAI Integration
 openai>=1.12.0
 

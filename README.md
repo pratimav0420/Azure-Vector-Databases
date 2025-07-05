@@ -1,18 +1,27 @@
 # Azure Vector Databases
 
 ## 🧭 Goal
-This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use Azure SQL Database as a vector store with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
+This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use both Azure SQL Database and Azure Cosmos DB NoSQL API as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
 
 ---
 
 ## 🗺️ High-Level Flow
 
+### Azure SQL Database Option
 - **Azure SQL Database** with native VECTOR data type support
 - **Azure OpenAI** integration for embeddings (text-embedding-3-small) and generation (GPT-4o Mini)
 - **Movie Dataset** as sample data for demonstrations
 - **Complete RAG pipeline** implementation
 - **Vector similarity search** with cosine and euclidean distance
 - **Performance optimization** and cost management strategies
+
+### Azure Cosmos DB NoSQL API Option
+- **Azure Cosmos DB NoSQL API** with vector indexing capabilities
+- **JSON document storage** with embedded vector arrays
+- **Global distribution** and horizontal scaling
+- **VectorDistance function** for similarity search
+- **Multi-region replication** for global applications
+- **Serverless and provisioned throughput** options
 
 ### Key Features Demonstrated:
 - ✅ **1536-dimensional vectors** using Azure OpenAI text-embedding-3-small
@@ -32,8 +41,15 @@ Azure-Vector-Databases/
 ├── AzureSqlDB/
 │   ├── MovieDB_DDL_Scripts.sql        # Database schema creation
 │   ├── Advanced_Vector_Operations.sql  # Advanced SQL vector demos
+│   ├── MovieDataset_AzureSQLDBVectors_Demo.ipynb  # SQL Database notebook
 │   └── SQL Demo 1.1-2.2*.sql          # Basic vector examples
-├── MovieDataset_VectorDB_Demo.ipynb   # Main Python notebook
+├── CosmosDBNoSqlAPI/
+│   ├── MovieDataset_CosmosDBVectors_Demo.ipynb    # Cosmos DB notebook
+│   ├── CosmosDB_Setup_Scripts.md       # Cosmos DB setup guide
+│   ├── Advanced_Vector_Operations.py   # Advanced Cosmos DB operations
+│   ├── CosmosDB Demo 1.1-2.2*.py      # Basic Cosmos DB examples
+│   └── README.md                       # Cosmos DB specific documentation
+├── MovieDataset_VectorDB_Demo.ipynb   # Legacy main notebook (see AzureSqlDB/)
 ├── config_template.py                 # Configuration template
 ├── .env.example                       # Environment variables template
 ├── .env                              # Your actual environment variables (not in git)
@@ -209,9 +225,67 @@ The notebook provides a complete walkthrough:
 4. **Insert vectors** into the movie_vectors table
 5. **Run similarity queries** to test the setup
 
+### Option 4: Azure Cosmos DB NoSQL API
+```bash
+# Navigate to Cosmos DB demo folder
+cd CosmosDBNoSqlAPI/
+
+# Start with the main notebook
+jupyter notebook MovieDataset_CosmosDBVectors_Demo.ipynb
+
+# Or run individual demo scripts
+python "CosmosDB Demo 1.1 - Simple Vector Query.py"
+python "CosmosDB Demo 1.2 - Simple Embedding.py"
+python "CosmosDB Demo 2.1 - Simple Completion.py"
+python "CosmosDB Demo 2.2 - End to End RAG.py"
+```
+
+**Cosmos DB Setup Requirements:**
+1. **Create Azure Cosmos DB account** with NoSQL API
+2. **Enable vector search preview** features
+3. **Configure vector embedding policies** (handled automatically by scripts)
+4. **Set up proper indexing** for optimal performance
+
+**Key Cosmos DB Advantages:**
+- 🌍 **Global distribution** with multi-region replication
+- 📈 **Automatic scaling** (serverless and provisioned options)
+- 🔄 **Multi-model** support (JSON documents with vectors)
+- ⚡ **Low latency** with single-digit millisecond reads
+- 🔧 **Flexible schema** with JSON document storage
+
 ---
 
-## 🎬 Demo Examples
+## � Vector Database Comparison: SQL Database vs Cosmos DB
+
+| Feature | Azure SQL Database | Azure Cosmos DB NoSQL API |
+|---------|------------------|--------------------------|
+| **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents |
+| **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() |
+| **Indexing** | Built-in vector indexes | Vector embedding policies |
+| **Query Language** | T-SQL with vector functions | SQL API with vector functions |
+| **Scaling** | Vertical (scale up/down) | Horizontal (automatic) |
+| **Global Distribution** | Read replicas | Multi-region writes |
+| **Consistency** | ACID transactions | Tunable consistency levels |
+| **Schema** | Fixed schema (tables) | Flexible schema (JSON) |
+| **Best For** | Structured data with vectors | Document-based vector storage |
+
+### When to Choose Azure SQL Database:
+- ✅ **Relational data model** fits your needs
+- ✅ **ACID transactions** are required
+- ✅ **Strong consistency** is critical
+- ✅ **Existing SQL expertise** in your team
+- ✅ **Complex joins** between vector and relational data
+
+### When to Choose Cosmos DB NoSQL API:
+- ✅ **Global distribution** across multiple regions
+- ✅ **Automatic scaling** with unpredictable workloads
+- ✅ **Flexible schema** for evolving data models
+- ✅ **Multi-model applications** (documents + vectors)
+- ✅ **Low latency** requirements worldwide
+
+---
+
+## �🎬 Demo Examples
 
 ### Semantic Movie Search
 ```python
@@ -248,6 +322,25 @@ FROM movie_vectors
 ORDER BY similarity_score DESC
 ```
 
+### Vector Similarity in Cosmos DB
+```python
+# Find movies similar to a specific movie using Cosmos DB
+query = """
+SELECT TOP 5 
+    c.title,
+    VectorDistance(c.embedding, @queryVector) AS distance
+FROM c
+WHERE c.embedding != null
+ORDER BY VectorDistance(c.embedding, @queryVector)
+"""
+
+results = container.query_items(
+    query=query,
+    parameters=[{"name": "@queryVector", "value": target_embedding}],
+    enable_cross_partition_query=True
+)
+```
+
 ---
 
 ## 💰 Cost Management
@@ -256,12 +349,27 @@ ORDER BY similarity_score DESC
 - **text-embedding-3-small**: ~$0.00002 per 1K tokens
 - **gpt-4o-mini**: ~$0.00015 per 1K input tokens, ~$0.0006 per 1K output tokens
 
+### Database Costs
+**Azure SQL Database:**
+- **Basic tier**: $5-15/month for development
+- **Standard/Premium**: Scales with DTUs/vCores
+- **Vector operations**: No additional cost
+
+**Azure Cosmos DB:**
+- **Serverless**: Pay per RU consumed (~$0.25 per million RUs)
+- **Provisioned**: $6-8 per 100 RU/s per month
+- **Vector indexing**: Additional RU consumption (~2-3x for vector queries)
+- **Storage**: $0.25/GB per month
+
 ### Cost Optimization Tips
 1. **Batch embedding generation** (included in notebook)
 2. **Cache embeddings** to avoid re-processing
 3. **Use smaller datasets** for development
 4. **Monitor API usage** in Azure Portal
 5. **Set up cost alerts** for your subscription
+6. **Choose appropriate database tier** based on workload
+7. **Use Cosmos DB serverless** for development and unpredictable workloads
+8. **Optimize vector indexing policies** to reduce RU consumption
 
 ### Sample Costs for Demo
 - 50 movies × 200 tokens average = 10K tokens
