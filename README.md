@@ -550,22 +550,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
-
-- **Azure SQL Database Team** for native vector support
-- **Azure OpenAI Service** for embedding and generation capabilities
-- **The Movies Dataset** contributors on Kaggle
-- **Open source community** for Python libraries used
-
----
-
-## 📞 Support
-
-For questions or issues:
-- Create an [Issue](../../issues) in this repository
-- Check the [Discussions](../../discussions) for community help
-- Review the troubleshooting section above
-
----
 
 **Happy Vector Searching! 🚀**
