@@ -111,12 +111,15 @@ PRINT 'Recommendation Engine Queries...';
 
 -- Create a recommendation function based on user preferences
 -- Simulate user viewing history with movie ratings
-CREATE TABLE IF NOT EXISTS user_ratings (
-    user_id INT,
-    movie_id INT,
-    rating FLOAT,
-    PRIMARY KEY (user_id, movie_id)
-);
+IF OBJECT_ID('user_ratings', 'U') IS NULL
+BEGIN
+    CREATE TABLE user_ratings (
+        user_id INT,
+        movie_id INT,
+        rating FLOAT,
+        PRIMARY KEY (user_id, movie_id)
+    );
+END
 
 -- Insert sample user data
 INSERT INTO user_ratings (user_id, movie_id, rating) 
@@ -356,24 +359,6 @@ SELECT
 FROM movies m
 JOIN movie_vectors mv ON m.movie_id = mv.movie_id;
 
-PRINT '========================================';
-PRINT 'Advanced vector operations with Azure OpenAI completed!';
-PRINT 'Use these patterns for:';
-PRINT '- Semantic search with Azure OpenAI embeddings';
-PRINT '- Recommendation engines using text-embedding-3-small';
-PRINT '- RAG applications with GPT-4o Mini';
-PRINT '- Vector quality analysis for 1536-dim embeddings';
-PRINT '- Performance optimization for Azure OpenAI vectors';
-PRINT '========================================';
-
--- Additional Azure OpenAI specific recommendations
-PRINT 'Azure OpenAI Integration Tips:';
-PRINT '- Use text-embedding-3-small (1536 dimensions) for embeddings';
-PRINT '- Implement proper retry logic for API calls';
-PRINT '- Cache embeddings to reduce API costs';
-PRINT '- Use GPT-4o Mini for cost-effective generation';
-PRINT '- Consider batch processing for large datasets';
-PRINT '========================================';
 
 -- Clean up temporary tables
 DROP TABLE IF EXISTS user_ratings;
