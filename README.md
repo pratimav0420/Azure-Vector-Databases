@@ -1,7 +1,7 @@
 # Azure Vector Databases
 
 ## 🧭 Goal
-This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use both Azure SQL Database and Azure Cosmos DB NoSQL API as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
+This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use Azure SQL Database, Azure Cosmos DB NoSQL API, and Azure Cosmos DB for MongoDB vCore as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
 
 ---
 
@@ -22,6 +22,14 @@ This project provides hands-on experience with multiple **Vector Database** opti
 - **VectorDistance function** for similarity search
 - **Multi-region replication** for global applications
 - **Serverless and provisioned throughput** options
+
+### Azure Cosmos DB for MongoDB vCore Option
+- **Azure Cosmos DB for MongoDB vCore** with native MongoDB vector search
+- **MongoDB aggregation pipeline** with $vectorSearch stage
+- **SearchIndexModel** for optimized vector indexing
+- **Native MongoDB drivers** (PyMongo) with vector capabilities
+- **HNSW and IVF indexing** algorithms for high-performance search
+- **Familiar MongoDB syntax** with vector search extensions
 
 ### Key Features Demonstrated:
 - ✅ **1536-dimensional vectors** using Azure OpenAI text-embedding-3-small
@@ -49,6 +57,11 @@ Azure-Vector-Databases/
 │   ├── Advanced_Vector_Operations.py   # Advanced Cosmos DB operations
 │   ├── CosmosDB Demo 1.1-2.2*.py      # Basic Cosmos DB examples
 │   └── README.md                       # Cosmos DB specific documentation
+├── CosmosDBMongoVcore/
+│   ├── MovieDataset_MongoVcore_Demo.ipynb         # MongoDB vCore notebook
+│   ├── Advanced_Vector_Operations.py   # Advanced MongoDB vector analytics
+│   ├── MongoDB Demo 1.1-2.2*.py       # Basic MongoDB vCore examples
+│   └── README.md                       # MongoDB vCore specific documentation
 ├── MovieDataset_VectorDB_Demo.ipynb   # Legacy main notebook (see AzureSqlDB/)
 ├── config_template.py                 # Configuration template
 ├── .env.example                       # Environment variables template
@@ -240,6 +253,37 @@ python "CosmosDB Demo 2.1 - Simple Completion.py"
 python "CosmosDB Demo 2.2 - End to End RAG.py"
 ```
 
+### Option 5: Azure Cosmos DB for MongoDB vCore
+```bash
+# Navigate to MongoDB vCore demo folder
+cd CosmosDBMongoVcore/
+
+# Start with the main notebook
+jupyter notebook MovieDataset_MongoVcore_Demo.ipynb
+
+# Or run individual demo scripts
+python "MongoDB Demo 1.1 - Simple Vector Query.py"
+python "MongoDB Demo 1.2 - Simple Embedding.py"
+python "MongoDB Demo 2.1 - Simple Completion.py"
+python "MongoDB Demo 2.2 - End to End RAG.py"
+python "Advanced_Vector_Operations.py"
+```
+
+**MongoDB vCore Setup Requirements:**
+1. **Create Azure Cosmos DB for MongoDB vCore** account
+2. **Get MongoDB connection string** (different format than NoSQL API)
+3. **Install pymongo and motor** drivers
+4. **Configure vector search indexes** using SearchIndexModel
+5. **Enable vector search capabilities** on your cluster
+
+**Key MongoDB vCore Advantages:**
+- 🧬 **Native MongoDB compatibility** with familiar syntax
+- 🔍 **Advanced vector indexing** with HNSW and IVF algorithms
+- 📊 **Rich aggregation pipelines** with $vectorSearch integration
+- 🚀 **High performance** with optimized vector operations
+- 🔧 **Flexible document model** with embedded vector arrays
+- 🌐 **MongoDB ecosystem** compatibility (drivers, tools, frameworks)
+
 **Cosmos DB Setup Requirements:**
 1. **Create Azure Cosmos DB account** with NoSQL API
 2. **Enable vector search preview** features
@@ -255,19 +299,20 @@ python "CosmosDB Demo 2.2 - End to End RAG.py"
 
 ---
 
-## � Vector Database Comparison: SQL Database vs Cosmos DB
+## 🏢 Vector Database Comparison: SQL Database vs Cosmos DB vs MongoDB vCore
 
-| Feature | Azure SQL Database | Azure Cosmos DB NoSQL API |
-|---------|------------------|--------------------------|
-| **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents |
-| **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() |
-| **Indexing** | Built-in vector indexes | Vector embedding policies |
-| **Query Language** | T-SQL with vector functions | SQL API with vector functions |
-| **Scaling** | Vertical (scale up/down) | Horizontal (automatic) |
-| **Global Distribution** | Read replicas | Multi-region writes |
-| **Consistency** | ACID transactions | Tunable consistency levels |
-| **Schema** | Fixed schema (tables) | Flexible schema (JSON) |
-| **Best For** | Structured data with vectors | Document-based vector storage |
+| Feature | Azure SQL Database | Azure Cosmos DB NoSQL API | Azure Cosmos DB MongoDB vCore |
+|---------|------------------|--------------------------|------------------------------|
+| **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents | BSON arrays with vector indexes |
+| **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() | $vectorSearch aggregation |
+| **Indexing** | Built-in vector indexes | Vector embedding policies | SearchIndexModel (HNSW/IVF) |
+| **Query Language** | T-SQL with vector functions | SQL API with vector functions | MongoDB aggregation pipeline |
+| **Scaling** | Vertical (scale up/down) | Horizontal (automatic) | Horizontal (sharding) |
+| **Global Distribution** | Read replicas | Multi-region writes | Multi-region with sharding |
+| **Consistency** | ACID transactions | Tunable consistency levels | MongoDB consistency model |
+| **Schema** | Fixed schema (tables) | Flexible schema (JSON) | Flexible schema (BSON) |
+| **Ecosystem** | SQL Server ecosystem | Azure Cosmos DB tools | MongoDB ecosystem |
+| **Best For** | Structured data with vectors | Document-based vector storage | MongoDB-native vector apps |
 
 ### When to Choose Azure SQL Database:
 - ✅ **Relational data model** fits your needs
@@ -282,6 +327,14 @@ python "CosmosDB Demo 2.2 - End to End RAG.py"
 - ✅ **Flexible schema** for evolving data models
 - ✅ **Multi-model applications** (documents + vectors)
 - ✅ **Low latency** requirements worldwide
+
+### When to Choose Cosmos DB for MongoDB vCore:
+- ✅ **Existing MongoDB expertise** and applications
+- ✅ **Rich aggregation pipelines** with vector search
+- ✅ **Advanced vector indexing** requirements (HNSW/IVF)
+- ✅ **MongoDB ecosystem** compatibility needed
+- ✅ **Complex vector operations** with document queries
+- ✅ **Familiar MongoDB drivers** and tooling
 
 ---
 

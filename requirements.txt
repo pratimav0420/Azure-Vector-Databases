@@ -11,6 +11,10 @@ sqlalchemy>=2.0.0
 # Azure Cosmos DB Integration
 azure-cosmos>=4.5.0
 
+# MongoDB Integration (for Cosmos DB MongoDB vCore)
+pymongo>=4.6.0
+motor>=3.3.0  # Async MongoDB driver (optional)
+
 # Azure OpenAI Integration
 openai>=1.12.0
 
