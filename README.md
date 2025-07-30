@@ -5,40 +5,6 @@ This project provides hands-on experience with multiple **Vector Database** opti
 
 ---
 
-## 🗺️ High-Level Flow
-
-### Azure SQL Database Option
-- **Azure SQL Database** with native VECTOR data type support
-- **Azure OpenAI** integration for embeddings (text-embedding-3-small) and generation (GPT-4o Mini)
-- **Movie Dataset** as sample data for demonstrations
-- **Complete RAG pipeline** implementation
-- **Vector similarity search** with cosine and euclidean distance
-- **Performance optimization** and cost management strategies
-
-### Azure Cosmos DB NoSQL API Option
-- **Azure Cosmos DB NoSQL API** with vector indexing capabilities
-- **JSON document storage** with embedded vector arrays
-- **Global distribution** and horizontal scaling
-- **VectorDistance function** for similarity search
-- **Multi-region replication** for global applications
-- **Serverless and provisioned throughput** options
-
-### Azure Cosmos DB for MongoDB vCore Option
-- **Azure Cosmos DB for MongoDB vCore** with native MongoDB vector search
-- **MongoDB aggregation pipeline** with $vectorSearch stage
-- **SearchIndexModel** for optimized vector indexing
-- **Native MongoDB drivers** (PyMongo) with vector capabilities
-- **HNSW and IVF indexing** algorithms for high-performance search
-- **Familiar MongoDB syntax** with vector search extensions
-
-### Key Features Demonstrated:
-- ✅ **1536-dimensional vectors** using Azure OpenAI text-embedding-3-small
-- ✅ **Native SQL vector operations** (VECTOR_DISTANCE, similarity search)
-- ✅ **Semantic movie search** with natural language queries
-- ✅ **RAG implementation** with GPT-4o Mini for personalized recommendations
-- ✅ **Production-ready patterns** with error handling and optimization
-
----
 
 ## 📁 Project Structure
 
@@ -267,37 +233,7 @@ python "MongoDB Demo 1.2 - Simple Embedding.py"
 python "MongoDB Demo 2.1 - Simple Completion.py"
 python "MongoDB Demo 2.2 - End to End RAG.py"
 python "Advanced_Vector_Operations.py"
-```
 
-**MongoDB vCore Setup Requirements:**
-1. **Create Azure Cosmos DB for MongoDB vCore** account
-2. **Get MongoDB connection string** (different format than NoSQL API)
-3. **Install pymongo and motor** drivers
-4. **Configure vector search indexes** using SearchIndexModel
-5. **Enable vector search capabilities** on your cluster
-
-**Key MongoDB vCore Advantages:**
-- 🧬 **Native MongoDB compatibility** with familiar syntax
-- 🔍 **Advanced vector indexing** with HNSW and IVF algorithms
-- 📊 **Rich aggregation pipelines** with $vectorSearch integration
-- 🚀 **High performance** with optimized vector operations
-- 🔧 **Flexible document model** with embedded vector arrays
-- 🌐 **MongoDB ecosystem** compatibility (drivers, tools, frameworks)
-
-**Cosmos DB Setup Requirements:**
-1. **Create Azure Cosmos DB account** with NoSQL API
-2. **Enable vector search preview** features
-3. **Configure vector embedding policies** (handled automatically by scripts)
-4. **Set up proper indexing** for optimal performance
-
-**Key Cosmos DB Advantages:**
-- 🌍 **Global distribution** with multi-region replication
-- 📈 **Automatic scaling** (serverless and provisioned options)
-- 🔄 **Multi-model** support (JSON documents with vectors)
-- ⚡ **Low latency** with single-digit millisecond reads
-- 🔧 **Flexible schema** with JSON document storage
-
----
 
 ## 🏢 Vector Database Comparison: SQL Database vs Cosmos DB vs MongoDB vCore
 
@@ -394,43 +330,6 @@ results = container.query_items(
 )
 ```
 
----
-
-## 💰 Cost Management
-
-### Azure OpenAI Costs
-- **text-embedding-3-small**: ~$0.00002 per 1K tokens
-- **gpt-4o-mini**: ~$0.00015 per 1K input tokens, ~$0.0006 per 1K output tokens
-
-### Database Costs
-**Azure SQL Database:**
-- **Basic tier**: $5-15/month for development
-- **Standard/Premium**: Scales with DTUs/vCores
-- **Vector operations**: No additional cost
-
-**Azure Cosmos DB:**
-- **Serverless**: Pay per RU consumed (~$0.25 per million RUs)
-- **Provisioned**: $6-8 per 100 RU/s per month
-- **Vector indexing**: Additional RU consumption (~2-3x for vector queries)
-- **Storage**: $0.25/GB per month
-
-### Cost Optimization Tips
-1. **Batch embedding generation** (included in notebook)
-2. **Cache embeddings** to avoid re-processing
-3. **Use smaller datasets** for development
-4. **Monitor API usage** in Azure Portal
-5. **Set up cost alerts** for your subscription
-6. **Choose appropriate database tier** based on workload
-7. **Use Cosmos DB serverless** for development and unpredictable workloads
-8. **Optimize vector indexing policies** to reduce RU consumption
-
-### Sample Costs for Demo
-- 50 movies × 200 tokens average = 10K tokens
-- Embedding cost: ~$0.0002
-- RAG queries: 2-3 queries × ~1K tokens = ~$0.002
-- **Total demo cost: < $0.01**
-
----
 
 ## 🔧 Configuration Options
 
@@ -456,92 +355,12 @@ EMBEDDING_BATCH_SIZE = 10  # Movies per batch
 RATE_LIMIT_DELAY = 1       # Seconds between batches
 ```
 
----
 
-## 🚨 Security Best Practices
-
-### API Key Management
-```bash
-# Use environment variables for production
-export AZURE_OPENAI_API_KEY="your-key"
-export SQL_PASSWORD="your-password"
 
 # Or use Azure Key Vault for enterprise scenarios
 ```
 
-### Database Security
-- Use **Azure AD authentication** when possible
-- Enable **SSL/TLS encryption** (already configured in connection string)
-- Implement **IP restrictions** on Azure SQL Database
-- Use **Managed Identity** for production deployments
 
-### Code Security
-- Never commit `config.py` to version control
-- Use `.gitignore` to exclude sensitive files
-- Implement **retry logic** with exponential backoff
-- Add **input validation** for user queries
-
----
-
-## 📊 Performance Benchmarks
-
-### Vector Search Performance (1536D vectors)
-- **10 movies**: ~5ms query time
-- **100 movies**: ~15ms query time
-- **1,000 movies**: ~50ms query time
-- **10,000+ movies**: Consider indexing strategies
-
-### Embedding Generation
-- **Single text**: ~200ms per request
-- **Batch of 10**: ~1.5s per batch
-- **Rate limits**: 3,000 RPM (requests per minute)
-
-### Memory Usage
-- **1536D vector**: ~6KB storage per movie
-- **1,000 movies**: ~6MB vector storage
-- **10,000 movies**: ~60MB vector storage
-
----
-
-## 🔍 Troubleshooting
-
-### Common Issues
-
-#### 1. Database Connection Errors
-```bash
-# Check ODBC driver installation
-odbcinst -j
-
-# Install ODBC Driver 18 for SQL Server if missing
-# Windows: Download from Microsoft
-# Linux: sudo apt-get install msodbcsql18
-```
-
-#### 2. Azure OpenAI API Errors
-```python
-# Check your deployment names match
-# Verify API key and endpoint
-# Ensure sufficient quota
-
-# Test connection:
-client.embeddings.create(input="test", model="text-embedding-3-small")
-```
-
-#### 3. Vector Dimension Mismatches
-```sql
--- Ensure vector dimensions match your embedding model
--- text-embedding-3-small = 1536 dimensions
--- Update DDL if using different models
-```
-
-#### 4. Performance Issues
-```sql
--- Check if vector indexes exist
-SELECT name FROM sys.indexes WHERE object_id = OBJECT_ID('movie_vectors')
-
--- Recreate if missing
-CREATE INDEX idx_movie_vectors_embedding ON movie_vectors(embedding)
-```
 
 ### Getting Help
 - 🚀 [**Quick Start Guide**](QUICKSTART.md) - 5-minute setup
@@ -550,24 +369,7 @@ CREATE INDEX idx_movie_vectors_embedding ON movie_vectors(embedding)
 - 📖 Review Azure SQL Database vector documentation
 - 🤖 Consult Azure OpenAI service limits and quotas
 
----
 
-## 🎓 Learning Resources
-
-### Azure Documentation
-- [Azure SQL Database Vector Support](https://docs.microsoft.com/azure/azure-sql/database/vector-search)
-- [Azure OpenAI Service](https://docs.microsoft.com/azure/cognitive-services/openai/)
-- [Vector Search Best Practices](https://docs.microsoft.com/azure/search/vector-search-overview)
-
-### Tutorials and Samples
-- [Building RAG Applications with Azure](https://docs.microsoft.com/azure/cognitive-services/openai/tutorials/rag)
-- [Vector Databases in Production](https://docs.microsoft.com/azure/architecture/patterns/vector-search)
-
-### Community
-- [Azure OpenAI Samples GitHub](https://github.com/Azure-Samples/openai)
-- [Azure SQL Database Community](https://techcommunity.microsoft.com/t5/azure-sql-database/ct-p/Azure-SQL-Database)
-
----
 
 ## 🤝 Contributing
 
