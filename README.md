@@ -3,43 +3,6 @@
 ## 🧭 Goal
 This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use Azure SQL Database, Azure Cosmos DB NoSQL API, and Azure Cosmos DB for MongoDB vCore as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
 
----
-
-
-## 📁 Project Structure
-
-```
-Azure-Vector-Databases/
-├── data/
-│   └── moviesdataset/          # Movies dataset CSV files
-├── AzureSqlDB/
-│   ├── MovieDB_DDL_Scripts.sql        # Database schema creation
-│   ├── Advanced_Vector_Operations.sql  # Advanced SQL vector demos
-│   ├── MovieDataset_AzureSQLDBVectors_Demo.ipynb  # SQL Database notebook
-│   └── SQL Demo 1.1-2.2*.sql          # Basic vector examples
-├── CosmosDBNoSqlAPI/
-│   ├── MovieDataset_CosmosDBVectors_Demo.ipynb    # Cosmos DB notebook
-│   ├── CosmosDB_Setup_Scripts.md       # Cosmos DB setup guide
-│   ├── Advanced_Vector_Operations.py   # Advanced Cosmos DB operations
-│   ├── CosmosDB Demo 1.1-2.2*.py      # Basic Cosmos DB examples
-│   └── README.md                       # Cosmos DB specific documentation
-├── CosmosDBMongoVcore/
-│   ├── MovieDataset_MongoVcore_Demo.ipynb         # MongoDB vCore notebook
-│   ├── Advanced_Vector_Operations.py   # Advanced MongoDB vector analytics
-│   ├── MongoDB Demo 1.1-2.2*.py       # Basic MongoDB vCore examples
-│   └── README.md                       # MongoDB vCore specific documentation
-├── MovieDataset_VectorDB_Demo.ipynb   # Legacy main notebook (see AzureSqlDB/)
-├── config_template.py                 # Configuration template
-├── .env.example                       # Environment variables template
-├── .env                              # Your actual environment variables (not in git)
-├── requirements.txt                   # Python dependencies
-├── setup.py                          # Environment validation script
-├── QUICKSTART.md                      # 5-minute setup guide
-├── TROUBLESHOOTING.md                 # Common issues and solutions
-└── README.md                          # This file
-```
-
----
 
 ## 🎯 Who This Is For
 
