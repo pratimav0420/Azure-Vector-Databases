@@ -1,7 +1,7 @@
 # Azure Vector Databases
 
 ## 🧭 Goal
-This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use Azure SQL Database, Azure Cosmos DB NoSQL API, and Azure Cosmos DB for MongoDB vCore as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
+This project provides hands-on experience with multiple **Vector Database** options available in **Azure**. It demonstrates how to use Azure SQL Database, Azure Cosmos DB NoSQL API, Azure Cosmos DB for MongoDB vCore, Azure Database for PostgreSQL, and Microsoft Fabric EventHouse as vector stores with Azure OpenAI embeddings for building modern AI applications including semantic search and RAG (Retrieval Augmented Generation) systems.
 
 
 ## 🎯 Who This Is For
@@ -22,6 +22,9 @@ This repository is useful for:
 ### Prerequisites
 - **Azure Subscription** with access to:
   - Azure SQL Database (with vector support enabled)
+  - Azure Cosmos DB (NoSQL API and MongoDB vCore)
+  - Azure Database for PostgreSQL (Flexible Server with pgvector)
+  - Microsoft Fabric workspace (with EventHouse)
   - Azure OpenAI Service (with text-embedding-3-small and gpt-4o-mini deployments)
 - **Python 3.10+** installed
 - **Git** for cloning the repository
@@ -130,7 +133,7 @@ python setup.py
 
 If all checks pass, you're ready to start the demo! 🎉
 
----
+
 
 ## 📓 Usage Guide
 
@@ -198,20 +201,21 @@ python "MongoDB Demo 2.2 - End to End RAG.py"
 python "Advanced_Vector_Operations.py"
 
 
-## 🏢 Vector Database Comparison: SQL Database vs Cosmos DB vs MongoDB vCore
+## 🏢 Vector Database Comparison: Complete Azure Vector Solutions
 
-| Feature | Azure SQL Database | Azure Cosmos DB NoSQL API | Azure Cosmos DB MongoDB vCore |
-|---------|------------------|--------------------------|------------------------------|
-| **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents | BSON arrays with vector indexes |
-| **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() | $vectorSearch aggregation |
-| **Indexing** | Built-in vector indexes | Vector embedding policies | SearchIndexModel (HNSW/IVF) |
-| **Query Language** | T-SQL with vector functions | SQL API with vector functions | MongoDB aggregation pipeline |
-| **Scaling** | Vertical (scale up/down) | Horizontal (automatic) | Horizontal (sharding) |
-| **Global Distribution** | Read replicas | Multi-region writes | Multi-region with sharding |
-| **Consistency** | ACID transactions | Tunable consistency levels | MongoDB consistency model |
-| **Schema** | Fixed schema (tables) | Flexible schema (JSON) | Flexible schema (BSON) |
-| **Ecosystem** | SQL Server ecosystem | Azure Cosmos DB tools | MongoDB ecosystem |
-| **Best For** | Structured data with vectors | Document-based vector storage | MongoDB-native vector apps |
+| Feature | Azure SQL Database | Cosmos DB NoSQL API | Cosmos DB MongoDB vCore | Azure PostgreSQL | Fabric EventHouse |
+|---------|------------------|--------------------------|------------------------------|------------------|-------------------|
+| **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents | BSON arrays with vector indexes | pgvector extension types | KQL vector functions |
+| **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() | $vectorSearch aggregation | <-> operator, cosine() | series_cosine_similarity() |
+| **Indexing** | Built-in vector indexes | Vector embedding policies | SearchIndexModel (HNSW/IVF) | IVF-Flat, HNSW indexes | Columnar storage optimization |
+| **Query Language** | T-SQL with vector functions | SQL API with vector functions | MongoDB aggregation pipeline | SQL with vector operators | KQL (Kusto Query Language) |
+| **Scaling** | Vertical (scale up/down) | Horizontal (automatic) | Horizontal (sharding) | Vertical with read replicas | Horizontal (cluster scaling) |
+| **Global Distribution** | Read replicas | Multi-region writes | Multi-region with sharding | Cross-region replication | Global Fabric deployment |
+| **Consistency** | ACID transactions | Tunable consistency levels | MongoDB consistency model | ACID transactions | Eventual consistency |
+| **Schema** | Fixed schema (tables) | Flexible schema (JSON) | Flexible schema (BSON) | Fixed schema (tables) | Schema-on-read |
+| **Ecosystem** | SQL Server ecosystem | Azure Cosmos DB tools | MongoDB ecosystem | PostgreSQL ecosystem | Microsoft Fabric suite |
+| **Real-time Analytics** | Limited | Moderate | Moderate | Limited | Excellent |
+| **Best For** | Structured data with vectors | Document-based vector storage | MongoDB-native vector apps | PostgreSQL + vector hybrid | Real-time vector analytics |
 
 ### When to Choose Azure SQL Database:
 - ✅ **Relational data model** fits your needs
@@ -234,6 +238,22 @@ python "Advanced_Vector_Operations.py"
 - ✅ **MongoDB ecosystem** compatibility needed
 - ✅ **Complex vector operations** with document queries
 - ✅ **Familiar MongoDB drivers** and tooling
+
+### When to Choose Azure Database for PostgreSQL:
+- ✅ **PostgreSQL expertise** and existing applications
+- ✅ **Open-source preference** with enterprise hosting
+- ✅ **Advanced SQL capabilities** with vector operations
+- ✅ **Cost-effective solution** for moderate scale
+- ✅ **Hybrid relational-vector** workloads
+- ✅ **Strong ACID compliance** requirements
+
+### When to Choose Microsoft Fabric EventHouse:
+- ✅ **Real-time vector analytics** and streaming data
+- ✅ **Large-scale data processing** requirements
+- ✅ **Microsoft ecosystem integration** (Power BI, Azure ML)
+- ✅ **Time-series + vector analysis** combined workloads
+- ✅ **Enterprise data governance** and compliance
+- ✅ **Advanced analytics** with KQL capabilities
 
 ---
 
@@ -295,33 +315,6 @@ results = container.query_items(
 
 
 ## 🔧 Configuration Options
-
-### Vector Dimensions
-- **Azure OpenAI text-embedding-3-small**: 1536 dimensions
-- **Alternative models**: text-embedding-3-large (3072 dimensions)
-- **Custom embeddings**: Adjust VECTOR(n) in DDL scripts
-
-### Performance Tuning
-```sql
--- Create additional indexes for better performance
-CREATE INDEX idx_movies_popularity ON movies(popularity DESC);
-CREATE INDEX idx_movies_genres ON movies(genres);
-
--- For large datasets, consider partitioning
--- Partition by release year or genre
-```
-
-### Batch Processing
-```python
-# Adjust batch sizes based on your API limits
-EMBEDDING_BATCH_SIZE = 10  # Movies per batch
-RATE_LIMIT_DELAY = 1       # Seconds between batches
-```
-
-
-
-# Or use Azure Key Vault for enterprise scenarios
-```
 
 
 
