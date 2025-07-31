@@ -203,8 +203,10 @@ python "Advanced_Vector_Operations.py"
 
 ## 🏢 Vector Database Comparison: Complete Azure Vector Solutions
 
+### 📊 Feature Comparison Matrix
+
 | Feature | Azure SQL Database | Cosmos DB NoSQL API | Cosmos DB MongoDB vCore | Azure PostgreSQL | Fabric EventHouse |
-|---------|------------------|--------------------------|------------------------------|------------------|-------------------|
+|---------|-------------------|---------------------|-------------------------|------------------|-------------------|
 | **Vector Storage** | Native VECTOR(n) data type | JSON arrays in documents | BSON arrays with vector indexes | pgvector extension types | KQL vector functions |
 | **Similarity Functions** | VECTOR_DISTANCE() | VectorDistance() | $vectorSearch aggregation | <-> operator, cosine() | series_cosine_similarity() |
 | **Indexing** | Built-in vector indexes | Vector embedding policies | SearchIndexModel (HNSW/IVF) | IVF-Flat, HNSW indexes | Columnar storage optimization |
@@ -217,21 +219,23 @@ python "Advanced_Vector_Operations.py"
 | **Real-time Analytics** | Limited | Moderate | Moderate | Limited | Excellent |
 | **Best For** | Structured data with vectors | Document-based vector storage | MongoDB-native vector apps | PostgreSQL + vector hybrid | Real-time vector analytics |
 
-### When to Choose Azure SQL Database:
+### 🎯 Decision Guide: When to Choose Each Database
+
+#### ⚡ Azure SQL Database
 - ✅ **Relational data model** fits your needs
 - ✅ **ACID transactions** are required
 - ✅ **Strong consistency** is critical
 - ✅ **Existing SQL expertise** in your team
 - ✅ **Complex joins** between vector and relational data
 
-### When to Choose Cosmos DB NoSQL API:
+#### 🌐 Cosmos DB NoSQL API
 - ✅ **Global distribution** across multiple regions
 - ✅ **Automatic scaling** with unpredictable workloads
 - ✅ **Flexible schema** for evolving data models
 - ✅ **Multi-model applications** (documents + vectors)
 - ✅ **Low latency** requirements worldwide
 
-### When to Choose Cosmos DB for MongoDB vCore:
+#### 🍃 Cosmos DB for MongoDB vCore
 - ✅ **Existing MongoDB expertise** and applications
 - ✅ **Rich aggregation pipelines** with vector search
 - ✅ **Advanced vector indexing** requirements (HNSW/IVF)
@@ -239,7 +243,7 @@ python "Advanced_Vector_Operations.py"
 - ✅ **Complex vector operations** with document queries
 - ✅ **Familiar MongoDB drivers** and tooling
 
-### When to Choose Azure Database for PostgreSQL:
+#### 🐘 Azure Database for PostgreSQL
 - ✅ **PostgreSQL expertise** and existing applications
 - ✅ **Open-source preference** with enterprise hosting
 - ✅ **Advanced SQL capabilities** with vector operations
@@ -247,7 +251,7 @@ python "Advanced_Vector_Operations.py"
 - ✅ **Hybrid relational-vector** workloads
 - ✅ **Strong ACID compliance** requirements
 
-### When to Choose Microsoft Fabric EventHouse:
+#### 📊 Microsoft Fabric EventHouse
 - ✅ **Real-time vector analytics** and streaming data
 - ✅ **Large-scale data processing** requirements
 - ✅ **Microsoft ecosystem integration** (Power BI, Azure ML)
@@ -257,7 +261,7 @@ python "Advanced_Vector_Operations.py"
 
 ---
 
-## �🎬 Demo Examples
+## 🎬 Demo Examples
 
 ### Semantic Movie Search
 ```python
