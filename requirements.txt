@@ -8,12 +8,22 @@ numpy>=1.24.0
 pyodbc>=4.0.35
 sqlalchemy>=2.0.0
 
+# PostgreSQL Integration (for Azure Database for PostgreSQL)
+psycopg2-binary>=2.9.0    # PostgreSQL adapter for Python
+asyncpg>=0.29.0           # Async PostgreSQL driver (optional)
+
 # Azure Cosmos DB Integration
 azure-cosmos>=4.5.0
 
 # MongoDB Integration (for Cosmos DB MongoDB vCore)
 pymongo>=4.6.0
 motor>=3.3.0  # Async MongoDB driver (optional)
+
+# Microsoft Fabric EventHouse Integration
+azure-kusto-data>=4.2.0   # Kusto Data SDK for EventHouse
+azure-kusto-ingest>=4.2.0 # Kusto Ingest SDK for EventHouse
+azure-identity>=1.15.0    # Azure authentication for Fabric
+azure-mgmt-kusto>=3.1.0   # Kusto management SDK (optional)
 
 # Azure OpenAI Integration
 openai>=1.12.0
